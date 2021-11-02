@@ -39,5 +39,3 @@ window.onclick = (e) => {
 			delMenu();
 		}
 }
-
-
