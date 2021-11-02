@@ -39,3 +39,4 @@ window.onclick = (e) => {
 			delMenu();
 		}
 }
+wadawdadad
