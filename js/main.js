@@ -33,11 +33,4 @@ buttonMenu.forEach((item, index) => {
 	}
 });
 
-window.onclick = (e) => {
-	console.log(e.target.tagName)
-		if (!e.target.closest('.add-btn')) {
-			delMenu();
-		}
-}
-
 
