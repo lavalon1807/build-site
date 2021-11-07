@@ -44,16 +44,16 @@ const massMenu = ['Заголовок H1', 'Заголовок H2', 'Загол�
 const header = document.querySelector('.header');
 const content = document.querySelectorAll('.content');
 const footer = document.querySelector('.footer');
-const massCCC = [
+const masContents = [
 	header,  
 	footer
 ];
-console.log(massCCC);
+const fff = ['h1', 'h2', 'h3', 'p', 'button'];
 for(let i =0; i<content.length; i++) {
-	massCCC.splice(-1, 0, content[i]);
+	masContents.splice(-1, 0, content[i]);
 }
 
-const ggg = (index, count) => {
+const constructorMenu = (index, count) => {
 	const div = document.createElement('div');
 	const divv = div.cloneNode();
 	const h1 = document.createElement('h1');
@@ -71,10 +71,34 @@ const ggg = (index, count) => {
 	divv.classList.add('element', 'title');
 	divv.setAttribute('tabindex', '0');
 		//Меняем переменые, которые размещают дом элементы(место их вставки)
-	massCCC[count].append(div);
+	masContents[count].append(div);
 	div.append(divv);
 	divv.append(h1);
 	divv.append(button);
+	button.append(span);
+};
+const constructorMenu2 = (index, count) => {
+	const rrr = document.querySelector('.header__elements-wrapper')
+	const div = document.createElement('div');
+	// const divv = div.cloneNode();
+	const h1 = document.createElement(fff[index]);
+	const button = document.createElement('button');
+	const span = document.createElement('span');
+
+	span.classList.add('visually-hidden');
+	span.innerHTML = 'Удалить элемент';
+	button.setAttribute('type', 'button');
+	button.classList.add('delete-btn');
+	h1.setAttribute('data-placeholder', massMenu[index]);
+	h1.setAttribute('contenteditable', 'true');
+	h1.innerHTML = massMenu[index];
+	// div.classList.add('header__elements-wrapper');
+	div.classList.add('element', 'title');
+	div.setAttribute('tabindex', '0');
+		//Меняем переменые, которые размещают дом элементы(место их вставки)
+	rrr.append(div);
+	div.append(h1);
+	div.append(button);
 	button.append(span);
 };
 
@@ -82,7 +106,15 @@ menu.forEach((item, index) => {
 	const buttonMenuu = item.querySelectorAll('button');
 	for (let i = 0; i<buttonMenuu.length; i++) {
 	buttonMenuu[i].onclick = () => {
-		ggg(i, index);
+		const ttt = document.querySelector('.header__elements-wrapper');
+		if(ttt) {
+			constructorMenu2(i, index);
+			console.log('2')
+		} else {
+			constructorMenu(i, index);
+			console.log('1')
+		}
+		// constructorMenu(i, index);
 	}
 }
 })
