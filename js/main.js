@@ -48,45 +48,28 @@ const masContents = [
 	header,  
 	footer
 ];
+
+const ggg = 'content__element-wrapper';
 const masContentsElement = [
 	'header__elements-wrapper',
-	'content__element-wrapper',
 	'footer__elements-wrapper'
 ];
-const fff = ['h1', 'h2', 'h3', 'p', 'button'];
+
+const massMenuElement = ['h1', 'h2', 'h3', 'p', 'button'];
 for(let i =0; i<content.length; i++) {
 	masContents.splice(-1, 0, content[i]);
+	masContentsElement.splice(-1, 0, ggg);
 }
-
-const constructorMenu = (index, count) => {
+const constructorMenuWrapper = (count) => {
 	const div = document.createElement('div');
-	const divv = div.cloneNode();
-	const h1 = document.createElement('h1');
-	const button = document.createElement('button');
-	const span = document.createElement('span');
 
-	span.classList.add('visually-hidden');
-	span.innerHTML = 'Удалить элемент';
-	button.setAttribute('type', 'button');
-	button.classList.add('delete-btn');
-	h1.setAttribute('data-placeholder', massMenu[index]);
-	h1.setAttribute('contenteditable', 'true');
-	h1.innerHTML = massMenu[index];
 	div.classList.add(masContentsElement[count]);//ТУТ добавляет класс, эврика
-	divv.classList.add('element', 'title');
-	divv.setAttribute('tabindex', '0');
-		//Меняем переменые, которые размещают дом элементы(место их вставки)
 	masContents[count].append(div);
-	div.append(divv);
-	divv.append(h1);
-	divv.append(button);
-	button.append(span);
 };
-const constructorMenu2 = (index, count) => {
-	const rrr = document.querySelector('.header__elements-wrapper')
+const constructorMenu = (index, count) => {
+	const wrapper = masContents[count].querySelector('.' + masContentsElement[count]);
 	const div = document.createElement('div');
-	// const divv = div.cloneNode();
-	const h1 = document.createElement(fff[index]);
+	const h1 = document.createElement(massMenuElement[index]);
 	const button = document.createElement('button');
 	const span = document.createElement('span');
 
@@ -97,59 +80,10 @@ const constructorMenu2 = (index, count) => {
 	h1.setAttribute('data-placeholder', massMenu[index]);
 	h1.setAttribute('contenteditable', 'true');
 	h1.innerHTML = massMenu[index];
-	// div.classList.add('header__elements-wrapper');
 	div.classList.add('element', 'title');
 	div.setAttribute('tabindex', '0');
 		//Меняем переменые, которые размещают дом элементы(место их вставки)
-	rrr.append(div);
-	div.append(h1);
-	div.append(button);
-	button.append(span);
-};
-const constructorMenu3 = (index, count) => {
-	const rrr = document.querySelector('.footer__elements-wrapper')
-	const div = document.createElement('div');
-	// const divv = div.cloneNode();
-	const h1 = document.createElement(fff[index]);
-	const button = document.createElement('button');
-	const span = document.createElement('span');
-
-	span.classList.add('visually-hidden');
-	span.innerHTML = 'Удалить элемент';
-	button.setAttribute('type', 'button');
-	button.classList.add('delete-btn');
-	h1.setAttribute('data-placeholder', massMenu[index]);
-	h1.setAttribute('contenteditable', 'true');
-	h1.innerHTML = massMenu[index];
-	// div.classList.add('header__elements-wrapper');
-	div.classList.add('element', 'title');
-	div.setAttribute('tabindex', '0');
-		//Меняем переменые, которые размещают дом элементы(место их вставки)
-	rrr.append(div);
-	div.append(h1);
-	div.append(button);
-	button.append(span);
-};
-const constructorMenu4 = (index, count) => {
-	const rrr = document.querySelector('.content__element-wrapper')
-	const div = document.createElement('div');
-	// const divv = div.cloneNode();
-	const h1 = document.createElement(fff[index]);
-	const button = document.createElement('button');
-	const span = document.createElement('span');
-
-	span.classList.add('visually-hidden');
-	span.innerHTML = 'Удалить элемент';
-	button.setAttribute('type', 'button');
-	button.classList.add('delete-btn');
-	h1.setAttribute('data-placeholder', massMenu[index]);
-	h1.setAttribute('contenteditable', 'true');
-	h1.innerHTML = massMenu[index];
-	// div.classList.add('header__elements-wrapper');
-	div.classList.add('element', 'title');
-	div.setAttribute('tabindex', '0');
-		//Меняем переменые, которые размещают дом элементы(место их вставки)
-	rrr.append(div);
+	wrapper.append(div);
 	div.append(h1);
 	div.append(button);
 	button.append(span);
@@ -157,79 +91,19 @@ const constructorMenu4 = (index, count) => {
 
 menu.forEach((item, index) => {
 	item.onclick = (evt) => {
-		let target = evt.target.innerText;
-		let targetG = evt.target.tagName;
-		const headerWrapper = document.querySelector('.header__elements-wrapper');
-		const footerWrapper = document.querySelector('.footer__elements-wrapper');
-		const contentWrapper = document.querySelector('.content__element-wrapper');
-		for (let i = 0; i < massMenu.length; i++) {
-			// if (headerWrapper && target == massMenu[i] && targetG == 'SVG') {
-			// 	constructorMenu2(i, index)
-			// 	console.log('header')
-			// } else if (footerWrapper && target == massMenu[i]) {
-			// 	constructorMenu3(i, index)
-			// 	console.log('footer')
-			// } else if (target == massMenu[i]) {
-			// 	constructorMenu(i, index);
-			// 	console.log('without');
-			// }
-// 			buttonMenu.forEach((item, index) => {
-// 	item.onclick = () => {
-// 		addMenu(index);
-// 	}
-// });
-
-			if (target == massMenu[i]) {
-				if (!headerWrapper) {
-					if (menu[0].style.display == 'flex') {
-						constructorMenu(i, index)
-						console.log('header')
-					}
-				} else if (menu[0].style.display == 'flex') {
-					constructorMenu2(i, index)
-					console.log('header-without')
-					console.log(menu[0])
-				}
-				if (!contentWrapper) {
-					if (menu[1].style.display == 'flex') {
-						constructorMenu(i, index)
-						console.log('content')
-					}
-				} else if (menu[1].style.display == 'flex') {
-					constructorMenu4(i, index)
-					console.log('content-without')
-					console.log(menu[1])
-				}
-				if (!footerWrapper) {
-					if (menu[2].style.display == 'flex') {
-						constructorMenu(i, index)
-						console.log('footer')
-					}
-				} else if (menu[2].style.display == 'flex') {
-					constructorMenu3(i, index)
-					console.log('footer-without')
-					console.log(menu[2])
-				}
-			}
+		const target = evt.target.innerText;
+		const wrapper = masContents[index].querySelector('.' + masContentsElement[index]);
+		for (let i = 0; i < massMenu.length; i++) {	
+					if (target == massMenu[i]) {
+						if (!wrapper) {
+							if (menu[index].style.display == 'flex') {
+								constructorMenuWrapper(index);
+								constructorMenu(i, index);
+							}
+					}	else if (menu[index].style.display == 'flex') {
+						constructorMenu(i, index);
+				} 
+			}			
 		}
 	}
-	// const buttonMenuu = item.querySelectorAll('.button');
-	// for (let i = 0; i<buttonMenuu.length; i++) {
-	// buttonMenuu[i].onclick = (evt) => {
-	// 	const headerWrapper = document.querySelector('.header__elements-wrapper');
-	// 	const footerWrapper = document.querySelector('.footer__element-wrapper');
-	// 	if(headerWrapper) {
-	// 		constructorMenu2(i, index);
-	// 		console.log('2')
-	// 	} else if (footerWrapper && item[index]) {
-	// 		constructorMenu3(i, index);
-	// 		console.log('3')
-	// 	} else {
-	// 		constructorMenu(i, index);
-	// 		console.log('no')
-	// 		console.log(item[index])
-	// 	}
-	// 	// constructorMenu(i, index);
-	// }
-// }
 })
