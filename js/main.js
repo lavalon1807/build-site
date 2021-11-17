@@ -11,6 +11,7 @@ shop.onclick = () => {document.location.href = 'shop-empty.html'}
 
 //лендинг
 const menu = document.querySelectorAll('.choose-elem');
+
 const buttonMenu = document.querySelectorAll('.add-btn');
 const delMenu = () => {
 	menu.forEach(item => {
@@ -28,16 +29,81 @@ const addMenu = (u) => {
 };
 
 buttonMenu.forEach((item, index) => {
-	item.onclick = (event) => {
+	item.onclick = () => {
 		addMenu(index);
 	}
 });
 
 window.onclick = (e) => {
-	console.log(e.target.tagName)
 		if (!e.target.closest('.add-btn')) {
 			delMenu();
 		}
 }
-wadawdadad
-asfasffasf11111
+const massMenu = ['Заголовок H1', 'Заголовок H2', 'Заголовок H3', 'Абзац текста', 'Изображение'];
+//Добавляем заголовок в header
+const header = document.querySelector('.header');
+const content = document.querySelectorAll('.content');
+const footer = document.querySelector('.footer');
+const masContents = [
+	header,  
+	footer
+];
+
+const ggg = 'content__element-wrapper';
+const masContentsElement = [
+	'header__elements-wrapper',
+	'footer__elements-wrapper'
+];
+
+const massMenuElement = ['h1', 'h2', 'h3', 'p', 'button'];
+for(let i =0; i<content.length; i++) {
+	masContents.splice(-1, 0, content[i]);
+	masContentsElement.splice(-1, 0, ggg);
+}
+const constructorMenuWrapper = (count) => {
+	const div = document.createElement('div');
+
+	div.classList.add(masContentsElement[count]);//ТУТ добавляет класс, эврика
+	masContents[count].append(div);
+};
+const constructorMenu = (index, count) => {
+	const wrapper = masContents[count].querySelector('.' + masContentsElement[count]);
+	const div = document.createElement('div');
+	const h1 = document.createElement(massMenuElement[index]);
+	const button = document.createElement('button');
+	const span = document.createElement('span');
+
+	span.classList.add('visually-hidden');
+	span.innerHTML = 'Удалить элемент';
+	button.setAttribute('type', 'button');
+	button.classList.add('delete-btn');
+	h1.setAttribute('data-placeholder', massMenu[index]);
+	h1.setAttribute('contenteditable', 'true');
+	h1.innerHTML = massMenu[index];
+	div.classList.add('element', 'title');
+	div.setAttribute('tabindex', '0');
+		//Меняем переменые, которые размещают дом элементы(место их вставки)
+	wrapper.append(div);
+	div.append(h1);
+	div.append(button);
+	button.append(span);
+};
+
+menu.forEach((item, index) => {
+	item.onclick = (evt) => {
+		const target = evt.target.innerText;
+		const wrapper = masContents[index].querySelector('.' + masContentsElement[index]);
+		for (let i = 0; i < massMenu.length; i++) {	
+					if (target == massMenu[i]) {
+						if (!wrapper) {
+							if (menu[index].style.display == 'flex') {
+								constructorMenuWrapper(index);
+								constructorMenu(i, index);
+							}
+					}	else if (menu[index].style.display == 'flex') {
+						constructorMenu(i, index);
+				} 
+			}			
+		}
+	}
+})
