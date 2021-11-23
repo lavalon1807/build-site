@@ -49,7 +49,7 @@ const masContents = [
 	footer
 ];
 
-const ggg = 'content__element-wrapper';
+const elementWrapper = 'content__element-wrapper';
 const masContentsElement = [
 	'header__elements-wrapper',
 	'footer__elements-wrapper'
@@ -58,7 +58,7 @@ const masContentsElement = [
 const massMenuElement = ['h1', 'h2', 'h3', 'p', 'button'];
 for(let i =0; i<content.length; i++) {
 	masContents.splice(-1, 0, content[i]);
-	masContentsElement.splice(-1, 0, ggg);
+	masContentsElement.splice(-1, 0, elementWrapper);
 }
 const constructorMenuWrapper = (count) => {
 	const div = document.createElement('div');
@@ -99,11 +99,25 @@ menu.forEach((item, index) => {
 							if (menu[index].style.display == 'flex') {
 								constructorMenuWrapper(index);
 								constructorMenu(i, index);
+								delElement(index);
 							}
 					}	else if (menu[index].style.display == 'flex') {
 						constructorMenu(i, index);
+						delElement(index);
 				} 
 			}			
 		}
 	}
 })
+
+//Добавляем обработчик на удаление элементов
+const delElement = (count) => {
+	const wrapper = masContents[count].querySelector('.' + masContentsElement[count]);
+	const delBtn = wrapper.querySelectorAll('.delete-btn');
+	const elements = masContents[count].querySelectorAll('.element');
+	delBtn.forEach((item, index) => {
+		item.onclick = () => {
+			elements[index].remove();
+		}
+	});
+}
