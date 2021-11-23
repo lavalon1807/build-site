@@ -108,7 +108,7 @@ menu.forEach((item, index) => {
 			}			
 		}
 	}
-})
+});
 
 //Добавляем обработчик на удаление элементов
 const delElement = (count) => {
