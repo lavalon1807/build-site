@@ -114,10 +114,18 @@ menu.forEach((item, index) => {
 const delElement = (count) => {
 	const wrapper = masContents[count].querySelector('.' + masContentsElement[count]);
 	const delBtn = wrapper.querySelectorAll('.delete-btn');
+	const placeholder = masContents[count].querySelector('.placeholder');
 	const elements = masContents[count].querySelectorAll('.element');
+	const massElements = Array.from(elements);
+	
+	placeholder.style.display = 'none';
 	delBtn.forEach((item, index) => {
 		item.onclick = () => {
+			massElements.pop();
 			elements[index].remove();
+			if (massElements.length === 0) {
+				placeholder.style.display = 'block';
+			}
 		}
 	});
 }
