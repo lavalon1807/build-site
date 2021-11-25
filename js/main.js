@@ -40,6 +40,7 @@ window.onclick = (e) => {
 		}
 }
 const massMenu = ['Заголовок H1', 'Заголовок H2', 'Заголовок H3', 'Абзац текста', 'Изображение'];
+const massText = ['title', 'title', 'title', 'text', 'title'];
 //Добавляем заголовок в header
 const header = document.querySelector('.header');
 const content = document.querySelectorAll('.content');
@@ -80,7 +81,8 @@ const constructorMenu = (index, count) => {
 	h1.setAttribute('data-placeholder', massMenu[index]);
 	h1.setAttribute('contenteditable', 'true');
 	h1.innerHTML = massMenu[index];
-	div.classList.add('element', 'title');
+	div.classList.add('element', massText[index]);
+
 	div.setAttribute('tabindex', '0');
 		//Меняем переменые, которые размещают дом элементы(место их вставки)
 	wrapper.append(div);
