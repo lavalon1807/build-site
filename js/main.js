@@ -55,11 +55,17 @@ const masContentsElement = [
 	'header__elements-wrapper',
 	'footer__elements-wrapper'
 ];
+const elementEmpty = 'content--empty'
+const masEmptyWrapper = [
+	'header--empty',
+	'footer--empty'
+];
 
 const massMenuElement = ['h1', 'h2', 'h3', 'p', 'button'];
 for(let i =0; i<content.length; i++) {
 	masContents.splice(-1, 0, content[i]);
 	masContentsElement.splice(-1, 0, elementWrapper);
+	masEmptyWrapper.splice(-1, 0, elementEmpty);
 }
 const constructorMenuWrapper = (count) => {
 	const div = document.createElement('div');
@@ -69,6 +75,7 @@ const constructorMenuWrapper = (count) => {
 };
 const constructorMenu = (index, count) => {
 	const wrapper = masContents[count].querySelector('.' + masContentsElement[count]);
+
 	const div = document.createElement('div');
 	const h1 = document.createElement(massMenuElement[index]);
 	const button = document.createElement('button');
@@ -82,6 +89,7 @@ const constructorMenu = (index, count) => {
 	h1.setAttribute('contenteditable', 'true');
 	h1.innerHTML = massMenu[index];
 	div.classList.add('element', massText[index]);
+	masContents[count].classList.remove(masEmptyWrapper[count]);
 
 	div.setAttribute('tabindex', '0');
 		//Меняем переменые, которые размещают дом элементы(место их вставки)
@@ -127,6 +135,7 @@ const delElement = (count) => {
 			elements[index].remove();
 			if (massElements.length === 0) {
 				placeholder.style.display = 'block';
+				masContents[count].classList.add(masEmptyWrapper[count]);
 			}
 		}
 	});
