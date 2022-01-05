@@ -98,6 +98,34 @@ const constructorMenu = (index, count) => {
 	div.append(button);
 	button.append(span);
 };
+//вставляем в разметку svg и path
+const constructorMenuImage = (count) => {
+  const button = document.createElement('button');
+  button.setAttribute('type', 'button');
+  button.classList.add('add-img-btn');
+ 
+
+  const xmlns = 'http://www.w3.org/2000/svg';
+  const boxWidth = 32;
+  const boxHeight = 32;
+  const addBoxSize = 16;
+
+  const svg = document.createElementNS(xmlns, 'svg');
+  svg.setAttributeNS(null, 'width', boxWidth);
+  svg.setAttributeNS(null, 'height', boxHeight);
+  svg.setAttributeNS(null, 'viewBox', '0 0 ' + 48 + ' ' + 48);
+  svg.setAttributeNS(null, 'fill', 'none');
+  
+  const newpath = document.createElementNS(xmlns, "path");  
+	newpath.setAttributeNS(null, "fill-rule", "evenodd");
+	newpath.setAttributeNS(null, "clip-rule", "evenodd"); 
+	newpath.setAttributeNS(null, "d", "M6 2V8H0V12H6V18H10V12H16V8H10V2H6ZM12 14V20H6V40C6 42.2 7.8 44 10 44H42C44.2 44 46 42.2 46 40V16C46 13.8 44.2 12 42 12H35.66L32 8H18V14H12ZM26 38C31.52 38 36 33.52 36 28C36 22.48 31.52 18 26 18C20.48 18 16 22.48 16 28C16 33.52 20.48 38 26 38ZM26 34C22.68 34 20 31.32 20 28C20 24.68 22.68 22 26 22C29.32 22 32 24.68 32 28C32 31.32 29.32 34 26 34Z");
+
+	svg.append(newpath);
+	button.append(svg);
+  header.appendChild(button);
+};
+constructorMenuImage();
 
 menu.forEach((item, index) => {
 	item.onclick = (evt) => {
