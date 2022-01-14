@@ -61,6 +61,14 @@ const masEmptyWrapper = [
 	'footer--empty'
 ];
 
+const masContentsClass = [
+	header,
+	content,
+	content,
+	content,
+	footer
+];
+
 const massMenuElement = ['h1', 'h2', 'h3', 'p', 'button'];
 for(let i =0; i<content.length; i++) {
 	masContents.splice(-1, 0, content[i]);
@@ -99,10 +107,10 @@ const constructorMenu = (index, count) => {
 	button.append(span);
 };
 //вставляем в разметку svg и path
-const constructorMenuImage = (index, count) => {
+const constructorMenuImage = (index, count, block, none) => {
 	const wrapper = masContents[count].querySelector('.' + masContentsElement[count]);
 	const div = document.createElement('div');
-  const buttonImg = document.createElement('button');
+  const buttonImg = document.createElement('button'); //кнопка с фото svg
   const button = document.createElement('button');
   const span = document.createElement('span');
   
@@ -142,14 +150,22 @@ const constructorMenuImage = (index, count) => {
   div.append(buttonImg);
   
 	wrapper.append(div);
-
-	buttonImg.addEventListener('click', () => {
-		constructorUploadImage(div, buttonImg)
-	}, {once: true});
+	if (masContents[count] !== content[count - 1]) {
+		buttonImg.addEventListener('click', () => {
+			constructorUploadImage(div, buttonImg)
+			console.log('header footer')
+		}, {once: true});
+	} else if(masContents[count] === content[count - 1]) {
+		constructorUploadImage(div, buttonImg);
+		console.log('content');
+	}
+	
 };
 
+const menuBlock = (unblock) => {unblock.style.display = 'block'};
+
 const constructorUploadImage = (divWrapper, buttonLoadPicture) => {
-	const divLoad = document.createElement('div');
+	const divLoad = document.createElement('div'); //инпут для загрузки изображения
 	const pLoad = document.createElement('p');
 	const input = document.createElement('input');
   const label = document.createElement('label');
@@ -157,6 +173,7 @@ const constructorUploadImage = (divWrapper, buttonLoadPicture) => {
   const img = document.createElement('img');
 
   img.setAttribute('src', '');
+  divLoad.style.display = 'block';
 
   divWrapper.classList.add('element--uploading');
 
@@ -167,8 +184,8 @@ const constructorUploadImage = (divWrapper, buttonLoadPicture) => {
   divLoad.classList.add('img-upload');
 	label.classList.add('img-upload__label');
 	label.textContent = 'Загрузить';
-	
-	divLoad.style.display = 'block';
+
+	menuBlock(divLoad);
 	
 	pLoad.textContent = 'Загрузите изображение';
 	input.setAttribute('type', 'url');
@@ -179,7 +196,6 @@ const constructorUploadImage = (divWrapper, buttonLoadPicture) => {
 	divLoad.append(input);
 	divLoad.append(label);
 	label.append(inputLabel);
-
 
 	label.onclick = (evt) => {
 		divWrapper.append(img);
@@ -196,13 +212,15 @@ menu.forEach((item, index) => {
 	item.onclick = (evt) => {
 		const target = evt.target.innerText;
 		const wrapper = masContents[index].querySelector('.' + masContentsElement[index]);
-		for (let i = 0; i < massMenu.length; i++) {	
+		// console.log(masContents[index] !== content[index - 1]);
+		for (let i = 0; i < massMenu.length; i++) {
 					if (target == massMenu[i]) {
 						if (!wrapper) {
 							if (menu[index].style.display == 'flex') {
 								constructorMenuWrapper(index);
 								// constructorMenu(i, index);
 								constructorMenuImage(i, index);
+
 								delElement(index);
 							}
 					}	else if (menu[index].style.display == 'flex') {
