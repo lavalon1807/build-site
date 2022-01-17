@@ -81,11 +81,12 @@ const constructorMenuWrapper = (count) => {
 	div.classList.add(masContentsElement[count]);//ТУТ добавляет класс, эврика
 	masContents[count].append(div);
 };
-const constructorMenu = (index, count) => {
+
+const constructorMenu = (index, count, target) => {
 	const wrapper = masContents[count].querySelector('.' + masContentsElement[count]);
 
 	const div = document.createElement('div');
-	const h = document.createElement(massMenuElement[index]);
+	const blockTitle = document.createElement(massMenuElement[index]);
 	const button = document.createElement('button');
 	const span = document.createElement('span');
 
@@ -93,26 +94,37 @@ const constructorMenu = (index, count) => {
 	span.innerHTML = 'Удалить элемент';
 	button.setAttribute('type', 'button');
 	button.classList.add('delete-btn');
-	h.setAttribute('data-placeholder', massMenu[index]);
-	h.setAttribute('contenteditable', 'true');
-	h.innerHTML = massMenu[index];
-	div.classList.add('element', massText[index]);
-	masContents[count].classList.remove(masEmptyWrapper[count]);
-
-	div.setAttribute('tabindex', '0');
+	if (target === 'Изображение') {
+		constructorMenuImage(index, count);
+	} else {
+		blockTitle.setAttribute('data-placeholder', target);
+		blockTitle.setAttribute('contenteditable', 'true');
+		blockTitle.innerHTML = target;
+		div.classList.add('element', massText[index]);
+		masContents[count].classList.remove(masEmptyWrapper[count]);
+		div.setAttribute('tabindex', '0');
+		wrapper.append(div);
+		div.append(blockTitle);
+		div.append(button);
+		button.append(span);
+		console.log('no-target')
+	}
+	
 		//Меняем переменые, которые размещают дом элементы(место их вставки)
-	wrapper.append(div);
-	div.append(h);
-	div.append(button);
-	button.append(span);
+	
 };
+
+// const constructorDelButton = () {
+
+// }
 //вставляем в разметку svg и path
-const constructorMenuImage = (index, count, block, none) => {
+const constructorMenuImage = (index, count) => {
 	const wrapper = masContents[count].querySelector('.' + masContentsElement[count]);
 	const div = document.createElement('div');
+
   const buttonImg = document.createElement('button'); //кнопка с фото svg
-  const button = document.createElement('button');
-  const span = document.createElement('span');
+  const button = document.createElement('button'); //кнопка для svg
+  const span = document.createElement('span'); //наименование для svg
   
 
   buttonImg.setAttribute('type', 'button');
@@ -153,16 +165,12 @@ const constructorMenuImage = (index, count, block, none) => {
 	if (masContents[count] !== content[count - 1]) {
 		buttonImg.addEventListener('click', () => {
 			constructorUploadImage(div, buttonImg)
-			console.log('header footer')
 		}, {once: true});
 	} else if(masContents[count] === content[count - 1]) {
 		constructorUploadImage(div, buttonImg);
-		console.log('content');
 	}
 	
 };
-
-const menuBlock = (unblock) => {unblock.style.display = 'block'};
 
 const constructorUploadImage = (divWrapper, buttonLoadPicture) => {
 	const divLoad = document.createElement('div'); //инпут для загрузки изображения
@@ -172,11 +180,9 @@ const constructorUploadImage = (divWrapper, buttonLoadPicture) => {
   const inputLabel = document.createElement('input');
   const img = document.createElement('img');
 
-  img.setAttribute('src', '');
   divLoad.style.display = 'block';
 
   divWrapper.classList.add('element--uploading');
-
   inputLabel.classList.add('visually-hidden');
   inputLabel.setAttribute('type', 'file');
   inputLabel.setAttribute('accept', 'image/png, image/jpeg');
@@ -184,8 +190,6 @@ const constructorUploadImage = (divWrapper, buttonLoadPicture) => {
   divLoad.classList.add('img-upload');
 	label.classList.add('img-upload__label');
 	label.textContent = 'Загрузить';
-
-	menuBlock(divLoad);
 	
 	pLoad.textContent = 'Загрузите изображение';
 	input.setAttribute('type', 'url');
@@ -202,8 +206,7 @@ const constructorUploadImage = (divWrapper, buttonLoadPicture) => {
 		divLoad.style.display = 'none';
 		buttonLoadPicture.style.display = 'none';
 		divWrapper.classList.remove('element--image');
-		const file = input.value;
-		img.src = file;
+		img.src = input.value;
 		evt.preventDefault();
 	}
 }
@@ -212,20 +215,16 @@ menu.forEach((item, index) => {
 	item.onclick = (evt) => {
 		const target = evt.target.innerText;
 		const wrapper = masContents[index].querySelector('.' + masContentsElement[index]);
-		// console.log(masContents[index] !== content[index - 1]);
 		for (let i = 0; i < massMenu.length; i++) {
 					if (target == massMenu[i]) {
 						if (!wrapper) {
 							if (menu[index].style.display == 'flex') {
 								constructorMenuWrapper(index);
-								// constructorMenu(i, index);
-								constructorMenuImage(i, index);
-
+								constructorMenu(i, index, target);
 								delElement(index);
 							}
 					}	else if (menu[index].style.display == 'flex') {
-						// constructorMenu(i, index);
-						constructorMenuImage(i, index);
+						constructorMenu(i, index, target);
 						delElement(index);
 				} 
 			}			
