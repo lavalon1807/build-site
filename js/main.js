@@ -196,17 +196,50 @@ const constructorUploadImage = (divWrapper, buttonLoadPicture) => {
 	divLoad.append(input);
 	divLoad.append(label);
 	label.append(inputLabel);
-	//тут вызываем с множественными параметрами обработчик на загрузку картинки
-	addClickOnUploadImage(label, divLoad, buttonLoadPicture, img, input);
+	//тут вызываем с множественными параметрами обработчики на загрузку картинки
+	//в зависимости от условий
+	label.addEventListener('click', function() {
+			showUploudInput(label, divLoad, buttonLoadPicture, img, input);
+			showUploadLocal(input, inputLabel, img, divLoad, buttonLoadPicture);
+	})
+};
+//обработчик если загрузка через ввод адреса
+const showUploudInput = (labelClick, divLoad, buttonLoadPicture, img, input) => {
+	labelClick.onclick = (evt) => {
+		if (input.value !== '') {
+			addClickOnUploadImage(labelClick, divLoad, buttonLoadPicture, img, input);
+			evt.preventDefault();
+		}
+	}
+};
+//обработчик через ввод локальной загрузки
+const showUploadLocal = (input, inputLabel, img, divLoad, buttonLoadPicture) => {
+	inputLabel.onchange = () => {
+		if (input.value === '') {
+			readerFile(inputLabel, img, divLoad, buttonLoadPicture);
+		}
+	}
+};
+
+const readerFile = (inputLabel, img, divLoad, buttonLoadPicture) => {
+	let file = inputLabel.files[0];
+	if (file) {
+      var reader = new FileReader();
+
+      reader.addEventListener('load', function () {
+        img.src = reader.result;
+      });
+
+      reader.readAsDataURL(file);
+      divLoad.style.display = 'none';
+			buttonLoadPicture.style.display = 'none';
+    }
 };
 
 const addClickOnUploadImage = (labelClick, divLoad, buttonLoadPicture, img, input) => {
-	labelClick.onclick = (evt) => {
 		divLoad.style.display = 'none';
 		buttonLoadPicture.style.display = 'none';
 		img.src = input.value;
-		evt.preventDefault();
-	}
 };
 
 menu.forEach((item, index) => {
