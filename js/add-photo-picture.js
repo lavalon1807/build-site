@@ -46,11 +46,10 @@
 			if (window.massivs.masContents[count] !== content[count - 1]) {
 				buttonImg.addEventListener('click', () => {
 					window.constructorLoadImage.constructorUploadImage(div, buttonImg);
-					document.addEventListener('click', window.constructorLoadImage.hiddeLoaderHeadFoot(div))
+					window.constructorLoadImage.hiddeLoader();
 				});
 			} else if(window.massivs.masContents[count] === content[count - 1]) {
 				window.constructorLoadImage.constructorUploadImage(div, buttonImg);
-				document.addEventListener('click', window.constructorLoadImage.hiddeLoaderContent(div))
 			}	
 		}
 	};

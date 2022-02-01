@@ -92,24 +92,11 @@
 			})
 		},
 
-
-
-		hiddeLoaderHeadFoot: function(divLoad) {
+		hiddeLoader: function() {
 			const imgUpload = document.querySelectorAll('.img-upload');
 			document.onclick = (e) => {
 				for (let i = 0; i < imgUpload.length; i++) {
-				if (!e.target.closest('.header') && !e.target.closest('.footer')) {
-					imgUpload[i].style.display = 'none';
-				}
-			}
-			}
-		},
-		
-		hiddeLoaderContent: function(divLoad) {
-			const imgUpload = document.querySelectorAll('.img-upload');
-			document.onclick = (e) => {
-				for (let i = 0; i < imgUpload.length; i++) {
-					if (!e.target.closest('.content')) {
+					if (!e.target.closest('.header') && !e.target.closest('.footer')) {
 						imgUpload[i].style.display = 'none';
 					}
 				}
