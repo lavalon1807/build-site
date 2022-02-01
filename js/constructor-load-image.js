@@ -72,14 +72,7 @@
 			divWrapper.classList.remove('element--image');
 			pLoad.textContent = 'Загрузите изображение';
 			//добавляем стили для блока загрузки изображения
-			genButtonLoad (inputLabel, label, input);
-
-			// window.onclick = (e) => {
-			// 	if (!e.target.closest('.image')) {
-			// 		divLoad.style.display = 'none';
-			// 	}
-			// }
-				
+			genButtonLoad (inputLabel, label, input);				
 
 			divWrapper.append(img);
 			divWrapper.append(divLoad);
@@ -89,14 +82,39 @@
 			label.append(inputLabel);
 			//тут вызываем с множественными параметрами обработчики на загрузку картинки
 			//в зависимости от условий
-			label.addEventListener('click', function() {
 
+			label.addEventListener('click', function() {
 				window.addPhotoPicture.showUploudInput(label, divLoad, 
 					buttonLoadPicture, img, input);
 
 				window.addPhotoPicture.showUploadLocal(input, inputLabel, 
 					img, divLoad, buttonLoadPicture);
 			})
+		},
+
+
+
+		hiddeLoaderHeadFoot: function(divLoad) {
+			const imgUpload = document.querySelectorAll('.img-upload');
+			document.onclick = (e) => {
+				for (let i = 0; i < imgUpload.length; i++) {
+				if (!e.target.closest('.header') && !e.target.closest('.footer')) {
+					imgUpload[i].style.display = 'none';
+				}
+			}
+			}
+		},
+		
+		hiddeLoaderContent: function(divLoad) {
+			const imgUpload = document.querySelectorAll('.img-upload');
+			document.onclick = (e) => {
+				for (let i = 0; i < imgUpload.length; i++) {
+					if (!e.target.closest('.content')) {
+						imgUpload[i].style.display = 'none';
+					}
+				}
+			}
 		}
 	};
+	
 })();

@@ -7,7 +7,7 @@
 		blockTitle.innerHTML = window.massivs.MASS_MENU[index];
 		div.classList.add('element', window.massivs.MASS_TEXT[index]);
 
-		div.addEventListener('keydown', window.deletElement.addEnter(div));
+		window.deletElement.addEnter(div);
 
 		window.massivs.masContents[count].classList.remove(window.massivs.masEmptyWrapper[count]);
 		div.setAttribute('tabindex', '0');

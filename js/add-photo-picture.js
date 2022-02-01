@@ -45,10 +45,12 @@
 		conditionLoadImg: function (count, buttonImg, div) {
 			if (window.massivs.masContents[count] !== content[count - 1]) {
 				buttonImg.addEventListener('click', () => {
-					window.constructorLoadImage.constructorUploadImage(div, buttonImg)
-				}, {once: true});
+					window.constructorLoadImage.constructorUploadImage(div, buttonImg);
+					document.addEventListener('click', window.constructorLoadImage.hiddeLoaderHeadFoot(div))
+				});
 			} else if(window.massivs.masContents[count] === content[count - 1]) {
 				window.constructorLoadImage.constructorUploadImage(div, buttonImg);
+				document.addEventListener('click', window.constructorLoadImage.hiddeLoaderContent(div))
 			}	
 		}
 	};
