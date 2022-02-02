@@ -17,8 +17,9 @@
 		constructorMenuWrapper: function (count) {
 			const div = document.createElement('div');
 			div.classList.add(window.massivs.masContentsElement[count]);
+			//делаем класс зацепку на все обертки
 			div.classList.add('wrapper');
-			window.massivs.masContents[count].classList.add('terofominsk');
+			window.massivs.masContents[count].classList.add('additionalClass');
 			window.massivs.masContents[count].append(div);
 		},
 

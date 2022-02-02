@@ -1,22 +1,12 @@
 'use strict';
 (function () {
 	//Переключаем страницы лендинг-блог-магазин
-	const blog = document.querySelector('#grid-blog');
-	const landing = document.querySelector('#grid-landing');
-	const shop = document.querySelector('#grid-shop');
+	const massContents = ['header', 'content', 'footer'];
+	const massLayout = ['layout--landing', 'layout--blog', 'layout--shop'];
 	const layout = document.querySelector('.layout');
-
-	const blogItem = document.querySelector('.layout--blog');
-	const landingItem = document.querySelector('.layout--landing');
-	const shopItem = document.querySelector('.layout--shop');
 	const maketsSelect = document.querySelectorAll('.grid-select__btn');
 	const miniMaketsSelect = document.querySelectorAll('.grid-select__radio');
 	
-	const massMaket = [landing, blog, shop];
-	const massLayout = ['layout--landing', 'layout--blog', 'layout--shop'];
-	const massClassMaket = ['1', '2', '3'];
-	const massAddress = ['blog-empty.html', 'landing-empty.html', 'shop-empty.html'];
-
 	const delClassOnMakets = (element, firstClassElement, secondClassElement) => {
 		element.removeAttribute('class');
 		element.setAttribute('class', firstClassElement);
@@ -29,44 +19,23 @@
 	maketsSelect.forEach((item, index) => {
 		item.onclick = () => {
 			delClassOnMakets(layout, 'layout', massLayout[index]);
-			ggg();
+			giveWrapperAfterDel();
 		}
 	})
-	const rrr = ['.header', '.content', '.footer'];
-	const ggg = () => {
+
+	const giveWrapperAfterDel = () => {
 		const wrapper = document.querySelectorAll('.wrapper');
-		const placeholder = document.querySelectorAll('.placeholder');
-		const terofominsk = document.querySelectorAll('.terofominsk');
+		const additionalClass = document.querySelectorAll('.additionalClass');
 
 		for (let i = 0; i < wrapper.length; i++) {
+			//удаляем все имеющиеся элементы
 			wrapper[i].remove();
 
-			if (terofominsk[i].classList.contains('header')) {
-				terofominsk[i].classList.add('header--empty');
-				const t = document.querySelector('.header');
-				const placeholder = t.querySelector('.placeholder');
-				placeholder.style.display = 'block';
-				console.log('0')
-			} else if (terofominsk[i].classList.contains('content')) {
-				terofominsk[i].classList.add('content--empty');
-				const t = terofominsk[i].querySelector('.placeholder');
-				t.style.display = 'block';
-				/*for (let r = 0; r < t.length; r++) {
-					const placeholder = t[r].querySelectorAll('.placeholder');
-					// console.log(placeholder)
-					placeholder[r].style.display = 'block';
-				}*/
-				
-				console.log('1')
-			} else if (terofominsk[i].classList.contains('footer')) {
-				terofominsk[i].classList.add('footer--empty');
-				const t = document.querySelector('.footer');
-				const placeholder = t.querySelector('.placeholder');
-				placeholder.style.display = 'block';
-				console.log('2')
+			if (additionalClass[i].classList.contains(massContents[i])) {
+				additionalClass[i].classList.add(massContents[i] + '--empty');		
 			}
-			
-			// window.massivs.masContents[i].classList.add(window.massivs.masEmptyWrapper[i]);
+			const t = additionalClass[i].querySelector('.placeholder');
+			t.style.display = 'block';
 		}
 	}
 
